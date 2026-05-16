@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Link, useParams, useNavigate } from '@tanstack/react-router';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { StatCard } from '@/components/StatCard';
 import { TransactionRow } from '@/components/TransactionRow';
+import { AddExternalPaymentModal } from '@/components/AddExternalPaymentModal';
 
 export function CategoryDetailScreen() {
   const { id } = useParams({ from: '/category/$id' });
@@ -16,6 +18,7 @@ export function CategoryDetailScreen() {
   const weekly = useStore((s) => s.getWeeklyTotalByCategory(id));
   const monthly = useStore((s) => s.getMonthlyTotalByCategory(id));
   const allTime = useStore((s) => s.getAllTimeByCategory(id));
+  const [logOpen, setLogOpen] = useState(false);
 
   if (!category) {
     return <div className="p-6 text-sm text-[#888780]">Category not found.</div>;
@@ -42,6 +45,14 @@ export function CategoryDetailScreen() {
         <StatCard label="All time" amount={allTime} />
       </div>
 
+      <button
+        onClick={() => setLogOpen(true)}
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-[#d6d4ce] bg-white py-3 text-xs font-medium text-[#534AB7] active:scale-[0.99] transition-transform"
+      >
+        <Plus size={14} />
+        Add payment made outside SpendWise
+      </button>
+
       <section className="mt-6">
         <h2 className="text-sm font-medium text-[#2c2c2a] mb-2">Transactions</h2>
         <div className="rounded-2xl bg-white border border-[#e8e7e3] px-3 py-1 divide-y divide-[#f0efeb]">
@@ -60,6 +71,12 @@ export function CategoryDetailScreen() {
       >
         Pay in this category
       </Link>
+
+      <AddExternalPaymentModal
+        open={logOpen}
+        onClose={() => setLogOpen(false)}
+        categoryId={id}
+      />
     </div>
   );
 }
