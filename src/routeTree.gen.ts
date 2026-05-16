@@ -13,6 +13,7 @@ import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as BillRouteImport } from './routes/bill'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CategoryIdRouteImport } from './routes/category.$id'
 
@@ -36,6 +37,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BillRoute = BillRouteImport.update({
+  id: '/bill',
+  path: '/bill',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const CategoryIdRoute = CategoryIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bill': typeof BillRoute
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bill': typeof BillRoute
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bill': typeof BillRoute
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/bill'
     | '/insights'
     | '/pay'
     | '/profile'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/bill'
     | '/insights'
     | '/pay'
     | '/profile'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/bill'
     | '/insights'
     | '/pay'
     | '/profile'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BillRoute: typeof BillRoute
   InsightsRoute: typeof InsightsRoute
   PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bill': {
+      id: '/bill'
+      path: '/bill'
+      fullPath: '/bill'
+      preLoaderRoute: typeof BillRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BillRoute: BillRoute,
   InsightsRoute: InsightsRoute,
   PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,

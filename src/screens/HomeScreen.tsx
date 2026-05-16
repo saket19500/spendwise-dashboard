@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Plus } from 'lucide-react';
+import { Plus, ScanLine, ChevronRight } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { CategoryCard } from '@/components/CategoryCard';
 import { TransactionRow } from '@/components/TransactionRow';
@@ -41,6 +41,21 @@ export function HomeScreen() {
           <span className="text-white/60">vs last month · May 2026</span>
         </div>
       </section>
+
+      {/* Scan bill CTA */}
+      <Link
+        to="/bill"
+        className="mt-4 flex items-center gap-3 rounded-2xl border border-[#e8e7e3] bg-white p-3.5 active:scale-[0.99] transition-transform"
+      >
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#EEEDFE] text-[#534AB7]">
+          <ScanLine size={20} />
+        </div>
+        <div className="flex-1">
+          <div className="text-sm font-medium text-[#2c2c2a]">Scan a bill</div>
+          <div className="text-[11px] text-[#888780]">Auto-detect items & split by category</div>
+        </div>
+        <ChevronRight size={18} className="text-[#c8c6c0]" />
+      </Link>
 
       {/* Category grid */}
       <section className="mt-5">
