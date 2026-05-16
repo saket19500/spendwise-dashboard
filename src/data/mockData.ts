@@ -7,6 +7,27 @@ export interface Category {
   budget: number;
 }
 
+export type PaymentMethod =
+  | 'UPI'
+  | 'QR Scan'
+  | 'Credit Card'
+  | 'Debit Card'
+  | 'Net Banking'
+  | 'Wallet'
+  | 'Cash'
+  | 'NEFT/IMPS';
+
+export const PAYMENT_METHODS: PaymentMethod[] = [
+  'UPI',
+  'QR Scan',
+  'Credit Card',
+  'Debit Card',
+  'Net Banking',
+  'Wallet',
+  'Cash',
+  'NEFT/IMPS',
+];
+
 export interface Transaction {
   id: string;
   categoryId: string;
@@ -15,6 +36,9 @@ export interface Transaction {
   date: string;
   time: string;
   upiRef: string;
+  paymentMethod?: PaymentMethod;
+  remarks?: string;
+  external?: boolean;
 }
 
 export const CATEGORIES: Category[] = [
