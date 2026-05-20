@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useParams, useNavigate } from '@tanstack/react-router';
 import { ArrowLeft, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
@@ -9,11 +9,17 @@ import { AddExternalPaymentModal } from '@/components/AddExternalPaymentModal';
 export function CategoryDetailScreen() {
   const { id } = useParams({ from: '/category/$id' });
   const navigate = useNavigate();
-  const category = useStore((s) => s.categories.find((c) => c.id === id));
-  const transactions = useStore((s) =>
-    s.transactions
-      .filter((t) => t.categoryId === id)
-      .sort((a, b) => (a.date < b.date ? 1 : -1))
+  // Select raw slices and derive in useMemo to avoid returning new arrays
+  // from the selector (which triggers infinite re-renders in Zustand).
+  const categories = useStore((s) => s.categories);
+  const allTransactions = useStore((s) => s.transactions);
+  const category = useMemo(() => categories.find((c) => c.id === id), [categories, id]);
+  const transactions = useMemo(
+    () =>
+      allTransactions
+        .filter((t) => t.categoryId === id)
+        .sort((a, b) => (a.date < b.date ? 1 : -1)),
+    [allTransactions, id]
   );
   const weekly = useStore((s) => s.getWeeklyTotalByCategory(id));
   const monthly = useStore((s) => s.getMonthlyTotalByCategory(id));
