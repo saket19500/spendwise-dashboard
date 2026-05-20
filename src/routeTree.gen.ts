@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionsRouteImport } from './routes/transactions'
+import { Route as ScanPayRouteImport } from './routes/scan-pay'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as InsightsRouteImport } from './routes/insights'
@@ -20,6 +21,11 @@ import { Route as CategoryIdRouteImport } from './routes/category.$id'
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScanPayRoute = ScanPayRouteImport.update({
+  id: '/scan-pay',
+  path: '/scan-pay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/scan-pay': typeof ScanPayRoute
   '/transactions': typeof TransactionsRoute
   '/category/$id': typeof CategoryIdRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/scan-pay': typeof ScanPayRoute
   '/transactions': typeof TransactionsRoute
   '/category/$id': typeof CategoryIdRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/insights': typeof InsightsRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/scan-pay': typeof ScanPayRoute
   '/transactions': typeof TransactionsRoute
   '/category/$id': typeof CategoryIdRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/pay'
     | '/profile'
+    | '/scan-pay'
     | '/transactions'
     | '/category/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/pay'
     | '/profile'
+    | '/scan-pay'
     | '/transactions'
     | '/category/$id'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/pay'
     | '/profile'
+    | '/scan-pay'
     | '/transactions'
     | '/category/$id'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   InsightsRoute: typeof InsightsRoute
   PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
+  ScanPayRoute: typeof ScanPayRoute
   TransactionsRoute: typeof TransactionsRoute
   CategoryIdRoute: typeof CategoryIdRoute
 }
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/transactions'
       fullPath: '/transactions'
       preLoaderRoute: typeof TransactionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scan-pay': {
+      id: '/scan-pay'
+      path: '/scan-pay'
+      fullPath: '/scan-pay'
+      preLoaderRoute: typeof ScanPayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsRoute: InsightsRoute,
   PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,
+  ScanPayRoute: ScanPayRoute,
   TransactionsRoute: TransactionsRoute,
   CategoryIdRoute: CategoryIdRoute,
 }

@@ -261,13 +261,17 @@ export function PayScreen() {
         />
       </div>
 
-      <button
-        onClick={handlePay}
-        disabled={!valid}
-        className="fixed bottom-20 left-4 right-4 mx-auto max-w-md block rounded-xl bg-[#7F77DD] py-3.5 text-sm font-medium text-white disabled:opacity-50"
-      >
-        Pay now
-      </button>
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#e8e7e3] bg-white/95 backdrop-blur-md pb-[calc(env(safe-area-inset-bottom)+64px)] pt-3">
+        <div className="mx-auto max-w-md px-4">
+          <button
+            onClick={handlePay}
+            disabled={!valid}
+            className="block w-full rounded-xl bg-[#7F77DD] py-3.5 text-sm font-medium text-white disabled:opacity-50"
+          >
+            Pay now
+          </button>
+        </div>
+      </div>
 
       <PaySuccessOverlay
         open={!!success}
