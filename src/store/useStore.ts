@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { CATEGORIES, TRANSACTIONS, type Category, type Transaction } from '@/data/mockData';
 import { getThisWeekDates, getThisMonthDates } from '@/utils/dateHelpers';
-import { getThisWeekDates, getThisMonthDates } from '@/utils/dateHelpers';
 
 interface StoreState {
   categories: Category[];
